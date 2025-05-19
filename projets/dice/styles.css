@@ -1,23 +1,30 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+<h1>🎲 Dice Roller</h1>
 
-body {
-  font-family: sans-serif;
-  text-align: center;
-  padding: 2rem;
-}
-.dice-options,
-.controls {
-  margin: 1rem 0;
-}
-.result {
-  font-size: 2rem;
-  margin-top: 2rem;
-}
-button {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-}
+<div class="modes">
+  <label><input type="radio" name="mode" value="random" checked> Aléatoire</label>
+  <label><input type="radio" name="mode" value="rpg"> Jeu de rôle</label>
+  <label><input type="radio" name="mode" value="ai"> Contre IA</label>
+</div>
+
+<div class="dice-options">
+  <label><input type="radio" name="dice" value="4"> d4</label>
+  <label><input type="radio" name="dice" value="6" checked> d6</label>
+  <label><input type="radio" name="dice" value="8"> d8</label>
+  <label><input type="radio" name="dice" value="10"> d10</label>
+  <label><input type="radio" name="dice" value="12"> d12</label>
+  <label><input type="radio" name="dice" value="20"> d20</label>
+  <label><input type="radio" name="dice" value="100"> d100</label>
+</div>
+
+<div class="controls">
+  <label>Nombre de dés : <input type="number" id="numDice" min="1" value="2"></label>
+  <label>Bonus : <input type="text" id="bonus" placeholder="+0"></label>
+</div>
+
+<button id="rollBtn">Lancer</button>
+
+<div class="result-zone">
+  <div id="result"></div>
+  <div id="rolls"></div>
+</div>
+<div class="game-mode-text" id="modeText"></div>
