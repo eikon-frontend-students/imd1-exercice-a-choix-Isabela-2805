@@ -1,6 +1,18 @@
 const rollBtn = document.getElementById("rollBtn");
 const resultDiv = document.getElementById("result");
 
+const resultSchema = {
+  d4: {
+    nul: 1,
+    fort: 4,
+  },
+  d6: {
+    nul: 2,
+    fort: 5,
+  },
+  // compléter avec d8, d10, d12, d20, etc.
+};
+
 function parseBonus(bonusStr) {
   const match = bonusStr.match(/([+-]?\d+)/);
   return match ? parseInt(match[1], 10) : 0;
@@ -14,8 +26,20 @@ function rollDice(sides, count, bonus) {
     rolls.push(roll);
     total += roll;
   }
+
+  // créer une phrase qui dit si le résultat est nul, fort, ou normal
+  let phrase = "";
+  const nulFort = resultSchema[`d${sides}`];
+  if (total <= nulFort.nul * count) {
+    phrase = "C’est le début du voyage, chaque point compte 👏 ";
+  } else if (total >= nulFort.fort * count) {
+    phrase = "Tu es à deux doigts de la légende 🌟";
+  } else {
+    phrase = "Tu as explosé le score 🔥";
+  }
+
   total += bonus;
-  return { total, rolls };
+  return { total, rolls, phrase };
 }
 
 rollBtn.addEventListener("click", () => {
@@ -26,7 +50,9 @@ rollBtn.addEventListener("click", () => {
   const numDice = parseInt(document.getElementById("numDice").value, 10);
   const bonus = parseBonus(document.getElementById("bonus").value);
 
-  const { total, rolls } = rollDice(diceSides, numDice, bonus);
+  const { total, rolls, phrase } = rollDice(diceSides, numDice, bonus);
+
+  document.querySelector(".phrase").textContent = phrase;
 
   // Display the total result
   resultDiv.innerHTML = total;
